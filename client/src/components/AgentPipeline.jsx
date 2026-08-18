@@ -1,5 +1,4 @@
-import { useState } from "react";
-import { motion, AnimatePresence } from "framer-motion";
+import { motion } from "framer-motion";
 import { AGENT_STEPS } from "../data/config";
 
 export default function AgentPipeline({ currentStep, isComplete }) {
