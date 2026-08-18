@@ -15,9 +15,11 @@ export default function Header({ onRunAnalysis, isAnalyzing, hasResults }) {
               initial={{ rotate: -10, scale: 0.8 }}
               animate={{ rotate: 0, scale: 1 }}
               transition={{ type: "spring", stiffness: 200 }}
+              role="img"
+              aria-label="TechScroll AI logo"
               className="w-12 h-12 rounded-2xl bg-gradient-to-br from-brand-500 to-accent-purple flex items-center justify-center text-2xl shadow-glow-brand"
             >
-              🎯
+              <span aria-hidden="true">🎯</span>
             </motion.div>
             <div>
               <motion.h1
@@ -58,11 +60,13 @@ export default function Header({ onRunAnalysis, isAnalyzing, hasResults }) {
               whileTap={{ scale: 0.98 }}
               onClick={onRunAnalysis}
               disabled={isAnalyzing}
+              aria-label={isAnalyzing ? "Running AI analysis, please wait" : "Run AI analysis on selected reels"}
+              aria-busy={isAnalyzing}
               className="btn-brand flex items-center gap-2 disabled:opacity-60 disabled:cursor-not-allowed"
             >
               {isAnalyzing ? (
                 <>
-                  <svg className="w-4 h-4 animate-spin" viewBox="0 0 24 24" fill="none">
+                  <svg className="w-4 h-4 animate-spin" viewBox="0 0 24 24" fill="none" aria-hidden="true">
                     <circle className="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" strokeWidth="4"/>
                     <path className="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4z"/>
                   </svg>
@@ -70,7 +74,7 @@ export default function Header({ onRunAnalysis, isAnalyzing, hasResults }) {
                 </>
               ) : (
                 <>
-                  <span>⚡</span>
+                  <span aria-hidden="true">⚡</span>
                   Run AI Analysis
                 </>
               )}
@@ -95,7 +99,7 @@ export default function Header({ onRunAnalysis, isAnalyzing, hasResults }) {
               key={chip.text}
               className="flex items-center gap-1.5 px-3 py-1 rounded-full bg-white/[0.04] border border-white/[0.06] text-xs text-slate-400"
             >
-              <span>{chip.icon}</span>
+              <span aria-hidden="true">{chip.icon}</span>
               {chip.text}
             </span>
           ))}

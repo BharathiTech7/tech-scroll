@@ -86,18 +86,19 @@ export default function Dashboard({ triggerAnalysis = 0, onAnalyzingChange, onRe
     <div className="max-w-7xl mx-auto px-4 md:px-6 py-8 space-y-10">
 
       {/* ─── Section 1: Your Recent Reels ──────────────────────────── */}
-      <section>
+      <section aria-labelledby="section-reels-heading">
         <div className="flex items-center justify-between mb-4">
           <div>
-            <p className="section-label">📱 Your Recent Reels</p>
-            <h2 className="text-xl font-bold text-white">Interaction History</h2>
+            <p className="section-label" aria-hidden="true">📱 Your Recent Reels</p>
+            <h2 id="section-reels-heading" className="text-xl font-bold text-white">Interaction History</h2>
           </div>
           <div className="flex items-center gap-2">
-            <span className="text-xs text-slate-500">
+            <span className="text-xs text-slate-500" aria-live="polite" aria-atomic="true">
               {selectedReelIds.size} selected
             </span>
             <button
               onClick={() => setSelectedReelIds(new Set(DEMO_REEL_IDS))}
+              aria-label="Reset reel selection to hackathon demo scenario"
               className="btn-secondary text-xs py-1.5 px-3"
             >
               Reset Demo
@@ -105,7 +106,11 @@ export default function Dashboard({ triggerAnalysis = 0, onAnalyzingChange, onRe
           </div>
         </div>
 
-        <div className="scroll-row no-scrollbar pb-3">
+        <div
+          role="group"
+          aria-label="Select reels to include in AI analysis"
+          className="scroll-row no-scrollbar pb-3"
+        >
           {reels.map((reel, i) => (
             <ReelCard
               key={reel.id}
@@ -123,8 +128,8 @@ export default function Dashboard({ triggerAnalysis = 0, onAnalyzingChange, onRe
         </div>
 
         {reels.length > 0 && (
-          <p className="text-xs text-slate-600 mt-2">
-            Click reels to select/deselect them for analysis. Default selection = hackathon demo scenario.
+          <p className="text-xs text-slate-500 mt-2">
+            Press Enter or Space on a reel to select or deselect it for analysis.
           </p>
         )}
       </section>
@@ -207,6 +212,8 @@ export default function Dashboard({ triggerAnalysis = 0, onAnalyzingChange, onRe
             ref={resultsRef}
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
+            aria-live="polite"
+            aria-label="AI analysis results"
             className="space-y-10"
           >
             {/* Provider badge */}

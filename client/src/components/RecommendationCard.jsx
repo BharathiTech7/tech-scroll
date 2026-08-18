@@ -145,22 +145,25 @@ export default function RecommendationCard({ recommendation, validation, explana
         >
           <button
             id="show-rejected-btn"
+            aria-expanded={showRejected}
+            aria-controls="rejected-rec-content"
             onClick={() => setShowRejected(!showRejected)}
             className="w-full flex items-center justify-between p-4 text-left hover:bg-rose-500/5 transition-colors"
           >
             <div className="flex items-center gap-2">
-              <span className="text-lg">❌</span>
+              <span aria-hidden="true" className="text-lg">❌</span>
               <div>
                 <p className="text-sm font-semibold text-rose-400">Rejected Recommendation</p>
                 <p className="text-xs text-slate-500">Click to see what the AI filtered out</p>
               </div>
             </div>
-            <span className="text-slate-400 text-sm">{showRejected ? "▲" : "▼"}</span>
+            <span aria-hidden="true" className="text-slate-400 text-sm">{showRejected ? "▲" : "▼"}</span>
           </button>
 
           <AnimatePresence>
             {showRejected && (
               <motion.div
+                id="rejected-rec-content"
                 initial={{ height: 0, opacity: 0 }}
                 animate={{ height: "auto", opacity: 1 }}
                 exit={{ height: 0, opacity: 0 }}

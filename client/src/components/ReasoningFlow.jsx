@@ -31,18 +31,21 @@ export default function ReasoningFlow({ recommendation, reelAnalyses }) {
     <div className="glass-card overflow-hidden">
       <button
         id="show-reasoning-btn"
+        aria-expanded={isOpen}
+        aria-controls="reasoning-flow-content"
         onClick={() => setIsOpen(!isOpen)}
         className="w-full flex items-center justify-between p-5 text-left hover:bg-white/[0.02] transition-colors"
       >
         <div className="flex items-center gap-3">
-          <span className="text-2xl">🔗</span>
+          <span aria-hidden="true" className="text-2xl">🔗</span>
           <div>
-            <p className="font-semibold text-slate-100">Show AI Reasoning</p>
+            <p className="font-semibold text-slate-100">{isOpen ? "Hide" : "Show"} AI Reasoning</p>
             <p className="text-xs text-slate-500 mt-0.5">Visual reasoning flow from interactions to recommendation</p>
           </div>
         </div>
         <motion.span
           animate={{ rotate: isOpen ? 180 : 0 }}
+          aria-hidden="true"
           className="text-slate-400 text-lg flex-shrink-0"
         >▼</motion.span>
       </button>
@@ -50,6 +53,7 @@ export default function ReasoningFlow({ recommendation, reelAnalyses }) {
       <AnimatePresence>
         {isOpen && (
           <motion.div
+            id="reasoning-flow-content"
             initial={{ height: 0, opacity: 0 }}
             animate={{ height: "auto", opacity: 1 }}
             exit={{ height: 0, opacity: 0 }}

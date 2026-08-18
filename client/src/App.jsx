@@ -13,12 +13,18 @@ export default function App() {
 
   return (
     <div className="min-h-screen">
+      {/* Skip link for keyboard / screen-reader users */}
+      <a href="#main-content" className="skip-link">
+        Skip to main content
+      </a>
+
       <Header
         onRunAnalysis={handleRunAnalysis}
         isAnalyzing={isAnalyzing}
         hasResults={hasResults}
       />
-      <main>
+
+      <main id="main-content" aria-label="TechScroll AI dashboard">
         <Dashboard
           triggerAnalysis={triggerAnalysis}
           onAnalyzingChange={setIsAnalyzing}
@@ -27,14 +33,14 @@ export default function App() {
       </main>
 
       {/* Footer */}
-      <footer className="border-t border-white/[0.04] mt-16 py-8 text-center">
-        <p className="text-xs text-slate-600">
+      <footer className="border-t border-white/[0.04] mt-16 py-8 text-center" role="contentinfo">
+        <p className="text-xs text-slate-400">
           TechScroll AI · Hackathon Demo ·{" "}
-          <span className="text-brand-500">Semantic Interest Inference</span>{" "}
+          <span className="text-brand-400">Semantic Interest Inference</span>{" "}
           · Anti-Hype Filter ·{" "}
-          <span className="text-accent-purple">4 AI Agents</span>
+          <span className="text-purple-400">4 AI Agents</span>
         </p>
-        <p className="text-[10px] text-slate-700 mt-1">
+        <p className="text-[10px] text-slate-500 mt-1">
           Built with React + Vite + Tailwind + Express + Google Gemini
         </p>
       </footer>
