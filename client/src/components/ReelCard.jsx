@@ -1,22 +1,10 @@
 import { motion } from "framer-motion";
 import { CATEGORY_CONFIG } from "../data/config";
 
-const categoryThumbnails = {
-  "Programming": "💻",
-  "Career": "🚀",
-  "Hardware": "🖥️",
-  "Gaming": "🎮",
-  "AI": "🤖",
-  "DSA": "🧠",
-  "Cloud": "☁️",
-  "Cybersecurity": "🔐",
-  "Web Development": "🌐",
-  "Entertainment": "🎬",
-};
-
 export default function ReelCard({ reel, isSelected, onToggle, index }) {
   const config = CATEGORY_CONFIG[reel.category] || CATEGORY_CONFIG["Programming"];
-  const thumbnail = categoryThumbnails[reel.category] || "📱";
+  const thumbnail = config.emoji || "📱";
+
   const watchColor = reel.watchPercentage >= 80 ? "from-emerald-500 to-teal-500"
     : reel.watchPercentage >= 50 ? "from-amber-500 to-yellow-500"
     : "from-rose-500 to-red-500";

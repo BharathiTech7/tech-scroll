@@ -18,7 +18,17 @@ app.use(cors({
   methods: ["GET", "POST", "OPTIONS"],
   allowedHeaders: ["Content-Type", "Authorization"]
 }));
-app.use(express.json());
+// Limit request body to 10 KB to prevent payload-based DoS
+app.use(express.json({ limit: "10kb" }));
+
+// Security headers
+app.use((req, res, next) => {
+  res.setHeader("X-Content-Type-Options", "nosniff");
+  res.setHeader("X-Frame-Options", "DENY");
+  res.setHeader("Referrer-Policy", "no-referrer");
+  res.setHeader("X-XSS-Protection", "0"); // Disabled in favour of CSP; 0 is the modern recommendation
+  next();
+});
 
 // Request logger
 app.use((req, res, next) => {
@@ -33,10 +43,10 @@ app.use((req, res) => {
   res.status(404).json({ error: "Route not found" });
 });
 
-// Error handler
+// Error handler — log full error server-side; never expose internals to clients
 app.use((err, req, res, next) => {
   console.error("[Server Error]", err);
-  res.status(500).json({ error: "Internal server error", message: err.message });
+  res.status(500).json({ error: "Internal server error" });
 });
 
 export default app;

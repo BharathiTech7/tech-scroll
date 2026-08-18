@@ -36,6 +36,17 @@ router.post("/analyze", async (req, res) => {
   try {
     const { reelIds = [] } = req.body;
 
+    // Validate: reelIds must be an array of strings, capped at 12
+    if (!Array.isArray(reelIds)) {
+      return res.status(400).json({ error: "reelIds must be an array" });
+    }
+    if (reelIds.length > 12) {
+      return res.status(400).json({ error: "reelIds may contain at most 12 entries" });
+    }
+    if (reelIds.some(id => typeof id !== "string" || id.length > 64)) {
+      return res.status(400).json({ error: "Each reel ID must be a string of at most 64 characters" });
+    }
+
     // Select reels to analyze
     let reelsToAnalyze;
     if (reelIds.length === 0) {
@@ -94,8 +105,7 @@ router.post("/analyze", async (req, res) => {
     console.error("[Pipeline] Fatal error:", err);
     res.status(500).json({
       success: false,
-      error: "Analysis pipeline failed",
-      message: err.message
+      error: "Analysis pipeline failed"
     });
   }
 });

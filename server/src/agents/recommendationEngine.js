@@ -63,7 +63,7 @@ export async function generateRecommendation(interestProfile, watchedReels = [])
     const userPrompt = `Generate a technology Reel recommendation based on this student's interest profile.
 
 Interest Profile:
-${JSON.stringify(interestProfile, null, 2)}
+${JSON.stringify(interestProfile)}
 
 Already watched reels (do not repeat these):
 ${watchedTitles || "None"}

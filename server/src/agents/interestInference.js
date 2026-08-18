@@ -73,7 +73,7 @@ export async function inferInterests(reelAnalyses, rawReels) {
 DO NOT match individual keywords. Find the semantic PATTERN across all interactions.
 
 Reel Analyses:
-${JSON.stringify(enrichedData, null, 2)}
+${JSON.stringify(enrichedData)}
 
 Remember: A Java meme + software engineer lifestyle + coding interview + laptop comparison together signal SOFTWARE ENGINEERING — not just "Java".
 
